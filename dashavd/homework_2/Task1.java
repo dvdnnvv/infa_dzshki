@@ -5,25 +5,28 @@ public class Task1 {
         Scanner scanner = new Scanner(System.in);
         int[] arr = new int[15];
 
-        // Ввод массива
+        // Ввод массива из 15 элементов
+        System.out.println("Введите 15 целых чисел:");
         for (int i = 0; i < 15; i++) {
             arr[i] = scanner.nextInt();
         }
 
-        // a) Перестановка элементов между вторым и десятым (с 3 по 9)
+        // a) Перестановка элементов между вторым и десятым (с 3 по 9 индексы)
         for (int i = 2, j = 8; i < j; i++, j--) {
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
+            swap(arr, i, j);
         }
 
-        // b) Перестановка элементов между k-м и s-м
-        int k = scanner.nextInt();
-        int s = scanner.nextInt();
-        for (int i = k, j = s - 2; i < j; i++, j--) {
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
+        // b) Перестановка элементов между k-м и s-м (k и s вводятся пользователем)
+        System.out.print("Введите индексы k и s для перестановки (от 1 до 15): ");
+        int k = scanner.nextInt() - 1; // Приводим к индексации массива (от 0)
+        int s = scanner.nextInt() - 1;
+
+        if (k >= 0 && k < s && s < 15) {
+            for (int i = k, j = s; i < j; i++, j--) {
+                swap(arr, i, j);
+            }
+        } else {
+            System.out.println("Ошибка: индексы должны быть в пределах 1-15 и k < s.");
         }
 
         // c) Перестановка элементов между максимальным и минимальным
@@ -33,6 +36,7 @@ public class Task1 {
             if (arr[i] > arr[maxIdx]) maxIdx = i;
         }
 
+        // Обеспечиваем правильный порядок перестановки
         if (minIdx > maxIdx) {
             int temp = minIdx;
             minIdx = maxIdx;
@@ -40,14 +44,22 @@ public class Task1 {
         }
 
         for (int i = minIdx, j = maxIdx; i < j; i++, j--) {
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
+            swap(arr, i, j);
         }
 
         // Вывод измененного массива
-        for (int i : arr) {
-            System.out.print(i + " ");
+        System.out.println("Измененный массив:");
+        for (int num : arr) {
+            System.out.print(num + " ");
         }
+
+        scanner.close(); // Закрываем Scanner
+    }
+
+    // Вспомогательный метод для обмена элементов массива
+    private static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }

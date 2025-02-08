@@ -5,41 +5,50 @@ public class Task3 {
         Scanner scanner = new Scanner(System.in);
         int[] arr = new int[15];
 
-        // Ввод массива
+        // Ввод массива из 15 элементов
+        System.out.println("Введите 15 целых чисел:");
         for (int i = 0; i < 15; i++) {
             arr[i] = scanner.nextInt();
         }
 
         // Нахождение первого отрицательного и последнего положительного элемента
-        int firstNegative = -1;
-        int lastPositive = -1;
+        int firstNegativeIndex = -1;
+        int lastPositiveIndex = -1;
 
         // Ищем первый отрицательный элемент
         for (int i = 0; i < 15; i++) {
             if (arr[i] < 0) {
-                firstNegative = i;
-                break;
+                firstNegativeIndex = i;
+                break; // Выходим из цикла после нахождения первого отрицательного элемента
             }
         }
 
         // Ищем последний положительный элемент
         for (int i = 14; i >= 0; i--) {
             if (arr[i] > 0) {
-                lastPositive = i;
-                break;
+                lastPositiveIndex = i;
+                break; // Выходим из цикла после нахождения последнего положительного элемента
             }
         }
 
-        // Если такие элементы найдены, меняем их местами
-        if (firstNegative != -1 && lastPositive != -1) {
-            int temp = arr[firstNegative];
-            arr[firstNegative] = arr[lastPositive];
-            arr[lastPositive] = temp;
+        // Если оба элемента найдены, меняем их местами
+        if (firstNegativeIndex != -1 && lastPositiveIndex != -1) {
+            swap(arr, firstNegativeIndex, lastPositiveIndex);
         }
 
         // Вывод измененного массива
-        for (int i : arr) {
-            System.out.print(i + " ");
+        System.out.println("Измененный массив:");
+        for (int num : arr) {
+            System.out.print(num + " ");
         }
+
+        scanner.close(); // Закрываем Scanner
+    }
+
+    // Вспомогательный метод для обмена элементов массива
+    private static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
